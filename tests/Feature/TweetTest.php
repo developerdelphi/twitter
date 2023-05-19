@@ -1,12 +1,28 @@
 <?php
+use App\Http\Livewire\Tweet\Create;
+use App\Models\Tweet;
+use App\Models\User;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseCount;
+use function Pest\Livewire\livewire;
 
-todo('Should be albe to create a tweet', function(){
-    livewire(Tweet::class)
+it('Should be able to create a tweet', function(){
+    $user = User::factory()->create();
+
+   actingAs($user);
+
+    livewire(Create::class)
         ->set('body','This is my first tweet')
         ->call('tweet')
         ->assertEmitted('tweet::created');
-    \Pest\Laravel\assertDatabaseCount('tweets', 1);
+
+    assertDatabaseCount('tweets', 1);
+
+    expect(Tweet::first())
+    ->body->toBe('This is my first tweet')
+    ->created_by->toBe($user->id);
 });
 todo('body is requirede');
+todo('Should make sure that only authenticated users can tweet');
 todo('the tweet should have a max length of 140 chars');
 todo('should show the tweet on the timeline');
