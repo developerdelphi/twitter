@@ -74,8 +74,7 @@ it('should show the tweet on the timeline', function(){
 
 it('Should set body form as null after send tweet', function(){
     $user = User::factory()->create();
-
-    actingAs($user);
+actingAs($user);
 
     livewire(Create::class)
         ->set('body', 'This is my first tweet')
