@@ -48,5 +48,8 @@ test('body is requirede', function(){
         ->assertHasErrors(['body' => 'required']);
 });
 
+
+todo('body is requirede');
+todo('Should make sure that only authenticated users can tweet');
 todo('the tweet should have a max length of 140 chars');
 todo('should show the tweet on the timeline');
